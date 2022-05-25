@@ -1,0 +1,49 @@
+{
+  "name": "@otr-app/shared_services",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "test": "karma start",
+    "prepublishOnly": "karma test",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexg313/otr_shared_services.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexg313/otr_shared_services/issues"
+  },
+  "homepage": "https://github.com/alexg313/otr_shared_services#readme",
+  "devDependencies": {
+    "@types/angular": "~1.8.4",
+    "@types/angular-mocks": "^1.7.1",
+    "@types/jasmine": "~4.0.3",
+    "@types/karma": "~6.3.3",
+    "angular": "~1.8.3",
+    "angular-mocks": "~1.8.3",
+    "del": "^6.1.1",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-uglify-es": "^3.0.0",
+    "husky": "^8.0.1",
+    "jasmine": "~4.1.0",
+    "karma": "^6.3.12",
+    "karma-chrome-launcher": "^3.1.1",
+    "karma-coverage": "^2.2.0",
+    "karma-jasmine": "^5.0.1",
+    "karma-typescript": "5.4.0",
+    "typescript": "4.4.4"
+  },
+  "peerDependencies": {
+    "@otr-app/shared-backend-generated-client": "~1.1.2"
+  }
+}

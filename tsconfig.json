@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es2015", "dom"],
+    "module": "commonjs",
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": false,
+
+    "declaration": true,
+    "outDir": "dist"
+  },
+  "include": ["app.ts", "services/**/*.ts", "tests/**/*.ts"],
+  "exclude": ["node_modules"]
+}
