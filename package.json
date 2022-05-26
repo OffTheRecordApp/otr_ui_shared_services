@@ -1,5 +1,5 @@
 {
-  "name": "@otr-app/shared_services",
+  "name": "@otr-app/ui-shared-services",
   "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexg313/otr_shared_services.git"
+    "url": "git+https://github.com/alexg313/otr_ui_shared_services.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/alexg313/otr_shared_services/issues"
+    "url": "https://github.com/alexg313/otr_ui_shared_services/issues"
   },
-  "homepage": "https://github.com/alexg313/otr_shared_services#readme",
+  "homepage": "https://github.com/alexg313/otr_ui_shared_services#readme",
   "devDependencies": {
     "@types/angular": "~1.8.4",
     "@types/angular-mocks": "^1.7.1",
@@ -32,7 +32,7 @@
     "del": "^6.1.1",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
-    "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-typescript": "5.0.1",
     "gulp-uglify-es": "^3.0.0",
     "husky": "^8.0.1",
     "jasmine": "~4.1.0",
