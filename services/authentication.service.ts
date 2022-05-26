@@ -1,6 +1,6 @@
 import angular from "angular";
 
-export class AuthenticationService {
+export class AppAuthenticationService {
   readonly URLS = {
     LOGIN: this.ENV.apiEndpoint + "/api/v1/authentication/login",
     LOGOUT: this.ENV.apiEndpoint + "/api/v1/authentication/logout",
@@ -44,7 +44,7 @@ export class AuthenticationService {
 }
 
 angular
-  .module("app.services")
-  .service("AuthenticationService", AuthenticationService);
+  .module("app.ui_shared_services")
+  .service("AppAuthenticationService", AppAuthenticationService);
 
-AuthenticationService.$inject = ["ENV", "$http", "$log"];
+AppAuthenticationService.$inject = ["ENV", "$http", "$log"];

@@ -1,15 +1,15 @@
 import angular from "angular";
 import "angular-mocks";
 
-import { AuthenticationService } from "../services/authentication.service";
+import { AppAuthenticationService } from "../services/authentication.service";
 
 describe("authentication service", () => {
-  beforeEach(angular.mock.module("app.services"));
-  let service: AuthenticationService, ENV, $http;
+  beforeEach(angular.mock.module("app.ui_shared_services"));
+  let service: AppAuthenticationService, ENV, $http;
 
-  beforeEach(inject((_$http_, _AuthenticationService_) => {
+  beforeEach(inject((_$http_, _AppAuthenticationService_) => {
     $http = _$http_;
-    service = _AuthenticationService_;
+    service = _AppAuthenticationService_;
   }));
 
   it("should impersonate when impersonateUser succeeds", async () => {

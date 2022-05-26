@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "test": "karma start",
-    "prepublishOnly": "karma test",
+    "prepublishOnly": "karma start",
     "prepare": "husky install"
   },
   "repository": {
@@ -44,6 +44,8 @@
     "typescript": "4.4.4"
   },
   "peerDependencies": {
-    "@otr-app/shared-backend-generated-client": "~1.1.2"
+    "@otr-app/shared-backend-generated-client": "~1.1.2",
+    "aws-sdk": "~2.1143.0",
+    "browser-image-compression": "~2.0.0"
   }
 }
