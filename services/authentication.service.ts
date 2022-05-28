@@ -1,13 +1,7 @@
 import angular from "angular";
 
-type authUrls = {
-  LOGIN: string;
-  LOGOUT: string;
-  IMPERSONATE: string;
-};
-
 export class AppAuthenticationService {
-  readonly URLS: authUrls = {
+  readonly URLS = {
     LOGIN: this.ENV.apiEndpoint + "/api/v1/authentication/login",
     LOGOUT: this.ENV.apiEndpoint + "/api/v1/authentication/logout",
     IMPERSONATE:

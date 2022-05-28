@@ -9,18 +9,24 @@
        ['app.ui_shared_services', '...', '...']
     )
     ```
-### Example of using a shared service
+   ### Example of using a shared service
 
-```typescript
-import { AppAuthenticationService } from '@otr-app/ui-shared-services';
+   ```typescript
+   import { AppAuthenticationService } from '@otr-app/ui-shared-services';
+   
+   class SomeComponent {
+       constructor(private AppAuthenticationService: AppAuthenticationService) {}
+       
+       async login() {
+           return await AppAuthenticationService.login('email', 'password');
+       }
+   }
 
-class SomeComponent {
-    constructor(private AppAuthenticationService: AppAuthenticationService) {}
-    
-    async login() {
-        return await AppAuthenticationService.login('email', 'password');
-    }
-}
-
-SomeComponent.$inject = ['AppAuthenticationService'];
-```
+   SomeComponent.$inject = ['AppAuthenticationService'];
+   ```
+## Services in this package
+* AppAuthenticationService
+* AppAwsS3Services
+* AppFileHandlerService
+* AppCredentialsService
+* RetryAsyncService
