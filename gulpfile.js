@@ -4,11 +4,26 @@ const ts = require("gulp-typescript");
 const tsConfig = require("./tsconfig");
 const concat = require("gulp-concat");
 const del = require("del");
+const babel = require("gulp-babel");
 
 function clean() {
-  return del(["dist/"]);
+  return del(["dist/", "build/"]);
 }
 
+function transpile() {
+  return gulp
+    .src("services/**/*.ts")
+    .pipe(
+      babel({
+        plugins: [
+          ["@babel/plugin-transform-typescript"],
+          ["babel-plugin-remove-import-export"],
+        ],
+      })
+    )
+    .pipe(concat("standalone.js"))
+    .pipe(gulp.dest("dist/"));
+}
 function compile() {
   return gulp
     .src(["app.ts", "services/**/*.ts"])
@@ -31,4 +46,9 @@ function bundle() {
     .pipe(gulp.dest("dist/"));
 }
 
-exports.build = gulp.series(clean, compile, types, bundle);
+exports.build = gulp.series(
+  clean,
+  gulp.parallel(transpile, compile),
+  types,
+  bundle
+);
