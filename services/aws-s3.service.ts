@@ -1,10 +1,17 @@
 import angular from "angular";
-import AWS from "aws-sdk";
+import {
+  S3Client,
+  GetObjectCommand,
+  GetObjectCommandInput,
+} from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { AppCredentialsService } from "./credentials.service";
 
 export class AppAwsS3Service {
   readonly bucketRegex = /http.?:\/\/([-\w]+).*.com/;
   readonly keyRegex = /s3.amazonaws.com\/(.*)/;
+  readonly defaultRegion = "us-west-2";
+  readonly defaultApiVersion = "2006-03-01";
 
   public s3Client?;
   private isFirstLoad = true;
@@ -15,9 +22,10 @@ export class AppAwsS3Service {
     private AppCredentialsService: AppCredentialsService,
     private $window
   ) {
-    AWS.config.apiVersions = {
-      s3: "2006-03-01",
-    };
+    this.s3Client = new S3Client({
+      apiVersion: this.defaultApiVersion,
+      region: this.defaultRegion,
+    });
   }
 
   public async getSignedUrl(url, triggerNewWindow?) {
@@ -48,37 +56,47 @@ export class AppAwsS3Service {
     }
   }
 
-  public setCredentials(options) {
+  public setCredentials(options: {
+    credentials: { accessKeyId: string; secretKey: string };
+    region?: string;
+    apiVersion?: string;
+  }) {
     const creds = options.credentials;
-    const awsCreds = new AWS.Credentials({
+    const awsCreds = {
       accessKeyId: creds.accessKeyId,
       secretAccessKey: creds.secretKey,
+    };
+    this.s3Client = new S3Client({
+      apiVersion: options.apiVersion ?? this.defaultApiVersion,
+      credentials: awsCreds,
+      region: options.region ?? this.defaultRegion,
     });
-    this.s3Client = new AWS.S3({ credentials: awsCreds });
+    return this.s3Client;
   }
 
-  public getSignedUrlInternal(options) {
+  public async getSignedUrlInternal(options) {
     const defer = this.$q.defer();
     const imageUrl = options.imageUrl;
 
-    const bucketMatches = this.bucketRegex.exec(imageUrl);
-    const bucketName = bucketMatches ? bucketMatches[1] : null;
-    const keyMatches = this.keyRegex.exec(imageUrl);
-    const keyName = keyMatches ? keyMatches[1] : null;
+    const bucketMatches = this.bucketRegex.exec(imageUrl) ?? [""];
+    const bucketName = bucketMatches[1];
+    const keyMatches = this.keyRegex.exec(imageUrl) ?? [""];
+    const keyName = keyMatches[1];
 
-    const params = {
+    const params: GetObjectCommandInput = {
       Bucket: bucketName,
       Key: keyName,
     };
 
-    this.s3Client.getSignedUrl("getObject", params, (err, url) => {
-      if (err) {
-        this.$log.error("error is: ", err);
-        defer.reject(err);
-      } else {
-        defer.resolve(url);
-      }
-    });
+    const command = new GetObjectCommand(params);
+
+    try {
+      const url = await getSignedUrl(this.s3Client, command);
+      defer.resolve(url);
+    } catch (err) {
+      this.$log.error("error is: ", err);
+      defer.reject(err);
+    }
     return defer.promise;
   }
 }

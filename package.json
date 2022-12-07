@@ -1,6 +1,6 @@
 {
   "name": "@otr-app/ui-shared-services",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -45,7 +45,8 @@
   },
   "peerDependencies": {
     "@otr-app/shared-backend-generated-client": ">=1.1.2 || < 3.0.0",
-    "aws-sdk": "2.x",
+    "@aws-sdk/client-s3": "^3.224.0",
+    "@aws-sdk/s3-request-presigner": "^3.224.0",
     "browser-image-compression": "~2.0.0"
   }
 }

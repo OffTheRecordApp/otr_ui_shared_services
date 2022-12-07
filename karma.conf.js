@@ -27,7 +27,8 @@ module.exports = function (config) {
     ],
 
     // list of files / patterns to exclude
-    exclude: [],
+    // TODO: include this test when we get Karma working with ECMA6
+    exclude: ["services/aws-s3.service.ts"],
 
     plugins: [
       "karma-coverage",
