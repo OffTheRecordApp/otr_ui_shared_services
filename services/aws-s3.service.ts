@@ -74,7 +74,7 @@ export class AppAwsS3Service {
     return this.s3Client;
   }
 
-  private async getSignedUrlInternal(options) {
+  public async getSignedUrlInternal(options) {
     const defer = this.$q.defer();
     const imageUrl = options.imageUrl;
 
