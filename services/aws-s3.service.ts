@@ -21,12 +21,7 @@ export class AppAwsS3Service {
     private $log,
     private AppCredentialsService: AppCredentialsService,
     private $window
-  ) {
-    this.s3Client = new S3Client({
-      apiVersion: this.defaultApiVersion,
-      region: this.defaultRegion,
-    });
-  }
+  ) {}
 
   public async getSignedUrl(url, triggerNewWindow?) {
     if (!this.keyRegex.exec(url)) {
@@ -75,7 +70,6 @@ export class AppAwsS3Service {
   }
 
   public async getSignedUrlInternal(options) {
-    const defer = this.$q.defer();
     const imageUrl = options.imageUrl;
 
     const bucketMatches = this.bucketRegex.exec(imageUrl) ?? [""];
@@ -92,12 +86,11 @@ export class AppAwsS3Service {
 
     try {
       const url = await getSignedUrl(this.s3Client, command);
-      defer.resolve(url);
+      return url;
     } catch (err) {
       this.$log.error("error is: ", err);
-      defer.reject(err);
+      throw `Unable to get signed URL: ${err}`;
     }
-    return defer.promise;
   }
 }
 
