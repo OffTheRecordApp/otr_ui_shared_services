@@ -11,7 +11,7 @@ describe("file handler service", () => {
   }));
 
   it("should allow various images when isFileTypeValid is called", () => {
-    ["png", "jpg", "jpeg", "pdf"].forEach((type) => {
+    ["png", "jpg", "jpeg", "pdf", "PDF", "JPG", "PNG"].forEach((type) => {
       const files = [{ file: { name: "hello." + type } }];
       expect(service.isFileTypeValid(files)).toBeTrue();
     });

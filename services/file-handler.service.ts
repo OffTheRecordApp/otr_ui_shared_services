@@ -8,7 +8,7 @@ export class AppFileHandlerService {
   constructor(private $q) {}
 
   public isFileTypeValid(files) {
-    const extension = files[0].file.name.split(".").pop();
+    const extension = files[0].file.name.toLowerCase().split(".").pop();
     return !!{ png: 1, jpg: 1, jpeg: 1, pdf: 1 }[extension];
   }
 
