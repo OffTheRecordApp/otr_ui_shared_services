@@ -11,10 +11,12 @@ describe("file handler service", () => {
   }));
 
   it("should allow various images when isFileTypeValid is called", () => {
-    ["png", "jpg", "jpeg", "pdf", "PDF", "JPG", "PNG"].forEach((type) => {
-      const files = [{ file: { name: "hello." + type } }];
-      expect(service.isFileTypeValid(files)).toBeTrue();
-    });
+    ["png", "jpg", "jpeg", "pdf", "gif", "PDF", "JPG", "PNG", "GIF"].forEach(
+      (type) => {
+        const files = [{ file: { name: "hello." + type } }];
+        expect(service.isFileTypeValid(files)).toBeTrue();
+      }
+    );
   });
 
   it("should not allow gzip when isFileTypeValid is called", () => {

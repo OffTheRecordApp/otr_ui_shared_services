@@ -9,7 +9,7 @@ export class AppFileHandlerService {
 
   public isFileTypeValid(files) {
     const extension = files[0].file.name.toLowerCase().split(".").pop();
-    return !!{ png: 1, jpg: 1, jpeg: 1, pdf: 1 }[extension];
+    return !!{ png: 1, jpg: 1, jpeg: 1, pdf: 1, gif: 1 }[extension];
   }
 
   public getFileType(files) {
