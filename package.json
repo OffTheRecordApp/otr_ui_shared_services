@@ -1,6 +1,6 @@
 {
   "name": "@otr-app/ui-shared-services",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,8 +8,12 @@
     "dist/"
   ],
   "scripts": {
+    "analyze": "webpack --profile --json --analyze > stats.json && npm run stats",
+    "stats": "webpack-bundle-analyzer build/stats.json",
+    "build:devo": "webpack build --progress --mode=development && tsc --emitDeclarationOnly",
+    "build": "webpack build --progress --mode=production && tsc --emitDeclarationOnly",
     "test": "karma start",
-    "prepublishOnly": "karma start && gulp build",
+    "prepublishOnly": "karma start && npm run build",
     "prepare": "husky install"
   },
   "repository": {
@@ -29,11 +33,7 @@
     "@types/karma": "~6.3.3",
     "angular": "~1.8.3",
     "angular-mocks": "~1.8.3",
-    "del": "^6.1.1",
-    "gulp": "^4.0.2",
-    "gulp-concat": "^2.6.1",
-    "gulp-typescript": "5.0.1",
-    "gulp-uglify-es": "^3.0.0",
+    "copy-webpack-plugin": "^11.0.0",
     "husky": "^8.0.1",
     "jasmine": "~4.1.0",
     "karma": "^6.3.12",
@@ -41,12 +41,16 @@
     "karma-coverage": "^2.2.0",
     "karma-jasmine": "^5.0.1",
     "karma-typescript": "5.4.0",
-    "typescript": "4.4.4"
+    "ts-loader": "^9.4.2",
+    "typescript": "4.4.4",
+    "webpack": "^5.75.0",
+    "webpack-bundle-analyzer": "^4.7.0",
+    "webpack-cli": "^5.0.1"
   },
   "peerDependencies": {
-    "@otr-app/shared-backend-generated-client": ">=1.1.2 || < 3.0.0",
     "@aws-sdk/client-s3": "^3.224.0",
     "@aws-sdk/s3-request-presigner": "^3.224.0",
+    "@otr-app/shared-backend-generated-client": ">=1.1.2 || < 3.0.0",
     "browser-image-compression": "~2.0.0"
   }
 }
