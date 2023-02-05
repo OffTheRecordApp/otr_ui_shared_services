@@ -5,7 +5,7 @@ const webpack = require('webpack');
 module.exports = (env, argv) => {
     const libsToIgnore = {
         'angular': 'angular',
-        'browser-image-compression': 'imageCompression',
+        'browser-image-compression': 'commonjs browser-image-compression',
         '@aws-sdk/client-s3': 'commonjs @aws-sdk/client-s3',
         '@aws-sdk/s3-request-presigner': 'commonjs @aws-sdk/s3-request-presigner'
     };
