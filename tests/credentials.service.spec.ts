@@ -1,38 +1,30 @@
 import angular from "angular";
 import { AppCredentialsService } from "../services/credentials.service";
+import {AwsCredentialsControllerApi} from "@otr-app/shared-backend-generated-client/dist/typescript";
 
 describe("credentials service", () => {
   beforeEach(angular.mock.module("app.ui_shared_services"));
-  beforeEach(() => {
-    angular.mock.module(($provide) => {
-      $provide.service("otrService", () => {
-        return jasmine.createSpyObj("otrService", [
-          "getAwsCredentialsUsingPOST",
-        ]);
-      });
-    });
-  });
-  let service: AppCredentialsService, otrService;
+  let service: AppCredentialsService, awsCredentialsControllerApi;
 
-  beforeEach(inject((_otrService_, _AppCredentialsService_) => {
+  beforeEach(inject((_AwsCredentialsControllerApi_, _AppCredentialsService_) => {
     service = _AppCredentialsService_;
-    otrService = _otrService_;
+    awsCredentialsControllerApi = _AwsCredentialsControllerApi_;
   }));
 
   it("should not call service when cache is available", async () => {
     // arrange
     service.cache["KEY_1"] = "value";
-
+    spyOn(awsCredentialsControllerApi, "getAwsCredentialsUsingPOST");
     // execute
     await service.getCredentials("KEY_1");
 
     // verify
-    expect(otrService.getAwsCredentialsUsingPOST).not.toHaveBeenCalled();
+    expect(awsCredentialsControllerApi.getAwsCredentialsUsingPOST).not.toHaveBeenCalled();
   });
 
   it("should call service when cache is not available", async () => {
     // arrange
-    otrService.getAwsCredentialsUsingPOST.and.resolveTo({
+    spyOn(awsCredentialsControllerApi, "getAwsCredentialsUsingPOST").and.resolveTo({
       data: "credentials",
     });
 
@@ -41,10 +33,9 @@ describe("credentials service", () => {
 
     // verify
     expect(service.cache["KEY_1"]).toEqual("credentials");
-    expect(otrService.getAwsCredentialsUsingPOST).toHaveBeenCalledWith({
-      request: {
+    expect(awsCredentialsControllerApi.getAwsCredentialsUsingPOST).toHaveBeenCalledWith({
         keyName: "KEY_1",
       },
-    });
+    );
   });
 });

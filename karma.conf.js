@@ -19,7 +19,6 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser
     files: [
       "node_modules/angular/angular.js",
-      "node_modules/@otr-app/shared-backend-generated-client/dist/otrBackendService.js",
       "app.ts",
       "tests/module-mocks.ts",
       "services/**/*.ts",
