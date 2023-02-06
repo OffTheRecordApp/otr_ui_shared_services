@@ -10,8 +10,8 @@
   "scripts": {
     "analyze": "webpack --profile --json --analyze > stats.json && npm run stats",
     "stats": "webpack-bundle-analyzer build/stats.json",
-    "build:devo": "webpack build --progress --mode=development && tsc --emitDeclarationOnly",
-    "build": "webpack build --progress --mode=production && tsc --emitDeclarationOnly",
+    "build:devo": "webpack build --progress --mode=development && tsc",
+    "build": "webpack build --progress --mode=production && tsc",
     "test": "karma start",
     "prepublishOnly": "karma start && npm run build",
     "prepare": "husky install"
